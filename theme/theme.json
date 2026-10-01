@@ -1,0 +1,225 @@
+{
+  "prospect": {
+    "name": "Trinity Health",
+    "short": "Trinity",
+    "domain": "trinity-health.org"
+  },
+  "title": "Trinity Health Data Inspector",
+  "tagline": "Made for Trinity Health by PostHog",
+  "palette": {
+    "primary": "#702082",
+    "secondary": "#1F0B26",
+    "accent": "#51C2B9"
+  },
+  "products": [
+    "product_analytics",
+    "session_replay",
+    "error_tracking",
+    "feature_flags",
+    "surveys"
+  ],
+  "music": {
+    "mood": "calm, focused, gentle, hospital night shift, quietly hopeful",
+    "bpm": 108
+  },
+  "text": {
+    "win": "Every event clean, no patient detail in the data, and the dashboards still tell the whole story.",
+    "lose": "A few records slipped past the desk. Grab a coffee, reread the rulebook, and try again.",
+    "credits": "Made for the Trinity Health engineers by PostHog"
+  },
+  "game": {
+    "difficulty": "normal",
+    "desk": {
+      "name": "Patient App Data Desk",
+      "sprite_prompt": "a clean light purple desk with a faint teal grid, seen from above"
+    },
+    "manager": {
+      "name": "Pulse",
+      "title": "Digital Health Lead",
+      "sprite_prompt": "a friendly product lead with curly hair, teal scrubs and a lanyard"
+    },
+    "sources": [
+      "web",
+      "ios",
+      "android"
+    ],
+    "events": [
+      {
+        "name": "appointment_booked",
+        "props": [
+          {
+            "name": "department",
+            "values": [
+              "primary_care",
+              "cardiology",
+              "imaging",
+              "pediatrics"
+            ]
+          },
+          {
+            "name": "step",
+            "values": [
+              "1",
+              "2",
+              "3"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "checkin_completed",
+        "props": [
+          {
+            "name": "method",
+            "values": [
+              "mobile",
+              "kiosk",
+              "front_desk"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "bill_paid",
+        "props": [
+          {
+            "name": "amount_usd",
+            "values": [
+              "25",
+              "80",
+              "150",
+              "400"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "telehealth_joined",
+        "props": [
+          {
+            "name": "minutes",
+            "values": [
+              "5",
+              "15",
+              "30"
+            ]
+          }
+        ]
+      },
+      {
+        "name": "refill_requested",
+        "props": [
+          {
+            "name": "pharmacy",
+            "values": [
+              "in_network",
+              "mail_order",
+              "retail"
+            ]
+          }
+        ]
+      }
+    ],
+    "personas": [
+      {
+        "name": "Dana",
+        "role": "Patient",
+        "sprite_prompt": "a patient with short grey hair and a warm red cardigan"
+      },
+      {
+        "name": "Luis",
+        "role": "Caregiver",
+        "sprite_prompt": "a caregiver with dark curly hair, a beard and a blue jacket"
+      },
+      {
+        "name": "Priya",
+        "role": "Care coordinator",
+        "sprite_prompt": "a care coordinator with a long braid and a purple headset"
+      },
+      {
+        "name": "Sam",
+        "role": "New parent",
+        "sprite_prompt": "a new parent with messy blond hair and a green hoodie"
+      }
+    ],
+    "days": [
+      {
+        "intro": "Welcome to the desk! Our funnels only work if every event is one we planned. Spot the strays.",
+        "rules": [
+          {
+            "type": "unknown_event",
+            "text": "Flag events that aren't in the tracking plan"
+          }
+        ]
+      },
+      {
+        "intro": "Staging is chatty this week, and booking only has three steps. Keep the real data real.",
+        "rules": [
+          {
+            "type": "blocked_source",
+            "text": "Flag events from staging",
+            "values": [
+              "staging"
+            ]
+          },
+          {
+            "type": "value_in_range",
+            "text": "step must be between 1 and 3",
+            "property": "step",
+            "min": 1,
+            "max": 3
+          }
+        ]
+      },
+      {
+        "intro": "Our own team tests the app on live accounts. They are not patients. Filter them out.",
+        "rules": [
+          {
+            "type": "internal_user",
+            "text": "Flag events from @trinity-health.org emails"
+          },
+          {
+            "type": "required_property",
+            "text": "Every booking needs a department",
+            "property": "department"
+          }
+        ]
+      },
+      {
+        "intro": "The big one. Patient details never belong in analytics. If a comment has any, flag it.",
+        "rules": [
+          {
+            "type": "pii_in_text",
+            "text": "Flag comments with an email, phone or card number"
+          },
+          {
+            "type": "property_in_set",
+            "text": "method must be mobile, kiosk or front_desk",
+            "property": "method",
+            "values": [
+              "mobile",
+              "kiosk",
+              "front_desk"
+            ]
+          }
+        ]
+      },
+      {
+        "intro": "Board report day. Double-counted visits or future dates would ruin it.",
+        "rules": [
+          {
+            "type": "duplicate_id",
+            "text": "Flag IDs you've already seen today"
+          },
+          {
+            "type": "future_timestamp",
+            "text": "Flag events stamped in the future"
+          }
+        ]
+      }
+    ],
+    "final_record": {
+      "intro": "Last record of the week. It looks routine. Read every single field."
+    }
+  }
+}

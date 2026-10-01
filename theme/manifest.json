@@ -1,0 +1,24 @@
+{
+ "slug": "trinity-health-data-inspector",
+ "kit": "data-inspector",
+ "music": null,
+ "posthog": null,
+ "draft": false,
+ "sprites": {
+  "inspector": "theme/sprites/inspector.png",
+  "manager": "theme/sprites/manager.png",
+  "persona_1": "theme/sprites/persona_1.png",
+  "persona_2": "theme/sprites/persona_2.png",
+  "persona_3": "theme/sprites/persona_3.png",
+  "persona_4": "theme/sprites/persona_4.png",
+  "desk": "theme/sprites/desk.png",
+  "stamp_ok": "theme/sprites/stamp_ok.png",
+  "stamp_flag": "theme/sprites/stamp_flag.png",
+  "icon_session_replay": "theme/sprites/icon_session_replay.png",
+  "icon_feature_flags": "theme/sprites/icon_feature_flags.png",
+  "icon_experiments": "theme/sprites/icon_experiments.png",
+  "icon_error_tracking": "theme/sprites/icon_error_tracking.png",
+  "icon_product_analytics": "theme/sprites/icon_product_analytics.png",
+  "icon_surveys": "theme/sprites/icon_surveys.png"
+ }
+}
